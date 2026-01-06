@@ -36,6 +36,21 @@
 		<link rel="stylesheet" href="css/style.css" />
 
 		<link rel="icon" href="images/favicon.ico" />
+
+		<!-- Google tag (gtag.js) -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-NXL6Y6MPXE"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-NXL6Y6MPXE");
+		</script>
 	</head>
 	<body>
 		<!-- Navigation -->
@@ -67,8 +82,12 @@
 			<div class="container">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb" id="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb-item"><a href="#" id="breadcrumbBookLink">Book</a></li>
+						<li class="breadcrumb-item">
+							<a href="index.html">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="#" id="breadcrumbBookLink">Book</a>
+						</li>
 						<li class="breadcrumb-item active">Audio Files</li>
 					</ol>
 				</nav>
@@ -165,9 +184,12 @@
 
 				// Update breadcrumb
 				if (bookId) {
-					const book = CONFIG.books.find(b => b.id === parseInt(bookId));
+					const book = CONFIG.books.find(
+						(b) => b.id === parseInt(bookId)
+					);
 					if (book) {
-						const breadcrumbLink = document.getElementById("breadcrumbBookLink");
+						const breadcrumbLink =
+							document.getElementById("breadcrumbBookLink");
 						breadcrumbLink.textContent = book.name;
 						breadcrumbLink.href = `book-details.html?id=${book.id}`;
 					}
