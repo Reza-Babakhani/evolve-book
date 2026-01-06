@@ -1,38 +1,221 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>My Evolve - Home</title>
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="manifest.json" />
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+		<!-- iOS Meta Tags -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<meta name="apple-mobile-web-app-title" content="My Evolve" />
+		<link rel="apple-touch-icon" href="images/icon.png" />
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Bootstrap Icons -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+		/>
+		<!-- Vazirmatn Font -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+		/>
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="icon" href="images/favicon.ico" />
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark glass-navbar fixed-top">
+			<div class="container">
+				<a class="navbar-brand fw-bold" href="index.html">
+					<i class="bi bi-book"></i> My Evolve
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="index.html"
+								>Home</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+		<!-- Main Content -->
+		<main class="main-content mt-5">
+			<div class="container py-5">
+				<div class="text-center mb-5">
+					<h1 class="display-4 fw-bold text-white mb-3">My Evolve</h1>
+					<p class="lead text-white-50">
+						Access your learning materials
+					</p>
+				</div>
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="evlove_book_files">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+				<!-- Books Grid -->
+				<div id="booksGrid" class="row g-4">
+					<!-- Books will be loaded here -->
+				</div>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+				<!-- Download App Button -->
+				<div
+					id="downloadAppSection"
+					class="text-center mt-5"
+					style="display: none"
+				>
+					<a
+						href="https://cafebazaar.ir/app/ir.rezababakhani.evolve"
+						target="_blank"
+						class=""
+					>
+						<img
+							src="images/get-cafebazaar-en.png"
+							alt="Download from Cafe Bazaar"
+						/>
+					</a>
 
-  <title>evlove_book_files</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+					<!-- Support Button -->
+					<div class="mt-4">
+						<button
+							type="button"
+							class="btn btn-primary btn-lg px-5"
+							data-bs-toggle="modal"
+							data-bs-target="#supportModal"
+						>
+							<i class="bi bi-heart me-2"></i>حمایت از برنامه
+						</button>
+					</div>
+				</div>
+
+				<!-- Footer Text -->
+				<div class="text-center mt-5 mb-4">
+					<small class="text-muted">
+						Made by
+						<a
+							href="https://rezababakhani.ir"
+							target="_blank"
+							class="text-decoration-none"
+							style="color: var(--text-secondary)"
+							>rezababakhani.ir</a
+						>
+					</small>
+				</div>
+			</div>
+		</main>
+
+		<!-- Support Popup Modal -->
+		<divdont
+			class="modal fade"
+			id="supportModal"
+			tabindex="-1"
+			aria-labelledby="supportModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content support-modal-content">
+					<div class="modal-header border-0 pb-2">
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body text-center py-4">
+						<i class="bi bi-heart-fill text-danger fs-1 mb-3"></i>
+						<p
+							class="mb-3"
+							style="font-size: 1.1rem; line-height: 1.8"
+						>
+							برای استفاده مداوم هر کاربر بطور متوسط ماهانه 50
+							هزار تومان هزینه سرور و فضای ذخیره سازی این برنامه
+							می‌شود. با حمایت از این برنامه به تداوم سرویس‌دهی آن
+							کمک کنید.
+						</p>
+						<p
+							class="text-muted mb-4"
+							style="font-size: 0.95rem; line-height: 1.6"
+						>
+							For continuous use, each user costs approximately
+							50,000 Tomans per month for server and storage
+							space. By supporting this application, you help
+							ensure its continued service.
+						</p>
+						<a
+							href="https://daramet.com/babakhani"
+							target="_blank"
+							class="btn btn-primary btn-lg px-5"
+						>
+							<i class="bi bi-heart me-2"></i>حمایت می‌کنم
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Audio Player Modal (Fixed at bottom) -->
+		<div id="audioPlayerContainer" class="audio-player-container d-none">
+			<div class="glass-card p-3">
+				<div class="d-flex align-items-center">
+					<button
+						id="audioPlayPause"
+						class="btn btn-link text-white me-3"
+					>
+						<i class="bi bi-play-fill fs-4"></i>
+					</button>
+					<div class="flex-grow-1 me-3">
+						<div class="text-white small" id="audioTitle">
+							No audio playing
+						</div>
+						<div class="progress mt-2" style="height: 4px">
+							<div
+								id="audioProgress"
+								class="progress-bar"
+								role="progressbar"
+								style="width: 0%"
+							></div>
+						</div>
+						<div class="d-flex justify-content-between mt-1">
+							<small class="text-white-50" id="audioCurrentTime"
+								>0:00</small
+							>
+							<small class="text-white-50" id="audioDuration"
+								>0:00</small
+							>
+						</div>
+					</div>
+					<button id="audioClose" class="btn btn-link text-white">
+						<i class="bi bi-x-lg"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap JS -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Custom JS -->
+		<script src="js/config.js"></script>
+		<script src="js/app.js"></script>
+	</body>
 </html>

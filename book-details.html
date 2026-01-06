@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - My Evolve</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="My Evolve" />
+    <link rel="apple-touch-icon" href="images/icon.png" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Vazirmatn Font -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+		<link rel="icon" href="images/favicon.ico" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark glass-navbar fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-book"></i> My Evolve
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" id="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" id="breadcrumbBookName">Loading...</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container py-5">
+            <h1 class="display-5 fw-bold text-white mb-4" id="bookTitle">Loading...</h1>
+
+            <!-- Books Section -->
+            <h2 class="section-title">Books</h2>
+            <div class="row g-3 mb-5" id="booksSection">
+                <!-- PDF cards will be loaded here -->
+            </div>
+
+            <!-- Audio Section -->
+            <h2 class="section-title">Audio Files</h2>
+            <div class="row g-3 mb-5" id="audioSection">
+                <!-- Audio cards will be loaded here -->
+            </div>
+
+            <!-- Video Section -->
+            <h2 class="section-title">Video Files</h2>
+            <div id="videoSection">
+                <!-- Video card will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Audio Player Container -->
+    <div id="audioPlayerContainer" class="audio-player-container d-none">
+        <div class="glass-card p-3">
+            <div class="d-flex align-items-center">
+                <button id="audioPlayPause" class="btn btn-link text-white me-3">
+                    <i class="bi bi-play-fill fs-4"></i>
+                </button>
+                <div class="flex-grow-1 me-3">
+                    <div class="text-white small" id="audioTitle">No audio playing</div>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div id="audioProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <small class="text-white-50" id="audioCurrentTime">0:00</small>
+                        <small class="text-white-50" id="audioDuration">0:00</small>
+                    </div>
+                </div>
+                <button id="audioClose" class="btn btn-link text-white">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/book-details.js"></script>
+</body>
+</html>
+

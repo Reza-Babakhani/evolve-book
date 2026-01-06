@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PDF Viewer - My Evolve</title>
+
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="manifest.json" />
+
+		<!-- iOS Meta Tags -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<meta name="apple-mobile-web-app-title" content="My Evolve" />
+		<link rel="apple-touch-icon" href="images/icon.png" />
+
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Bootstrap Icons -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+		/>
+		<!-- Vazirmatn Font -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+		/>
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/style.css" />
+
+		<link rel="icon" href="images/favicon.ico" />
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark glass-navbar fixed-top">
+			<div class="container">
+				<a class="navbar-brand fw-bold" href="index.html">
+					<i class="bi bi-book"></i> My Evolve
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Breadcrumb -->
+		<div class="breadcrumb-container">
+			<div class="container">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb" id="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="index.html">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="#" id="breadcrumbBookLink">Book</a>
+						</li>
+						<li
+							class="breadcrumb-item active"
+							id="breadcrumbPdfName"
+						>
+							PDF
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<main class="main-content pdf-viewer-main">
+			<!-- PDF Title (Hidden, used for document title) -->
+			<h1 class="d-none" id="pdfTitle">PDF Viewer</h1>
+
+			<!-- PDF Canvas Container -->
+			<div class="pdf-canvas-container" id="pdfCanvasContainer">
+				<!-- Loading Progress -->
+				<div
+					id="pdfLoadingProgress"
+					class="pdf-loading-container"
+					style="display: none"
+				>
+					<div class="text-center">
+						<div class="mb-3">
+							<div
+								class="progress"
+								style="
+									height: 25px;
+									width: 300px;
+									margin: 0 auto;
+								"
+							>
+								<div
+									id="pdfProgressBar"
+									class="progress-bar progress-bar-striped progress-bar-animated"
+									role="progressbar"
+									style="width: 0%"
+								>
+									0%
+								</div>
+							</div>
+						</div>
+						<p class="text-white" id="pdfLoadingText">
+							Loading PDF...
+						</p>
+					</div>
+				</div>
+				<div id="pdfPagesContainer"></div>
+			</div>
+
+			<!-- Current Page Label -->
+			<div id="pdfCurrentPageLabel" class="pdf-current-page-label">
+				Page <span id="pdfCurrentPageNum">1</span>
+			</div>
+
+			<!-- Floating PDF Controls -->
+			<div class="pdf-floating-controls">
+				<button
+					id="pdfZoomInBtn"
+					class="pdf-zoom-btn"
+					onclick="pdfZoomIn()"
+					title="Zoom In"
+				>
+					<i class="bi bi-plus-lg"></i>
+				</button>
+				<button
+					id="pdfZoomOutBtn"
+					class="pdf-zoom-btn"
+					onclick="pdfZoomOut()"
+					title="Zoom Out"
+				>
+					<i class="bi bi-dash-lg"></i>
+				</button>
+				<button
+					id="pdfGotoPageBtn"
+					class="pdf-goto-page-btn"
+					onclick="showGotoPageModal()"
+				>
+					Go To
+				</button>
+			</div>
+		</main>
+
+		<!-- Go To Page Modal -->
+		<div
+			class="modal fade"
+			id="gotoPageModal"
+			tabindex="-1"
+			aria-labelledby="gotoPageModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content support-modal-content">
+					<div class="modal-header border-0 pb-2">
+						<h5 class="modal-title" id="gotoPageModalLabel">
+							Go to Page
+						</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="gotoPageInput" class="form-label"
+								>Page Number</label
+							>
+							<input
+								type="number"
+								class="form-control"
+								id="gotoPageInput"
+								placeholder="Enter page number"
+								min="1"
+								autofocus
+							/>
+							<small class="text-muted"
+								>Total pages:
+								<span id="modalPageCount">-</span></small
+							>
+						</div>
+						<button
+							type="button"
+							class="btn btn-primary w-100"
+							onclick="goToPageFromModal()"
+						>
+							Go
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PDF.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Custom JS -->
+		<script src="js/config.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/pdf-viewer.js"></script>
+	</body>
+</html>
