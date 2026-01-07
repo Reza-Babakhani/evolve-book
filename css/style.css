@@ -382,24 +382,25 @@ body::before {
 
 /* PDF Viewer */
 .pdf-viewer-main {
-	padding-top: 70px !important;
 	padding: 0 !important;
-	height: 100vh;
+	margin: 0 !important;
+	height: calc(100vh - 80px); /* Default - will be adjusted by JS */
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	position: fixed;
+	top: 80px; /* Default - will be adjusted by JS */
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1; /* Below navbar (navbar z-index is typically 1030) */
 }
 
-.pdf-viewer-container {
+.pdf-viewer-main #pdfViewer {
 	width: 100%;
-	height: calc(100vh - 100px);
-	background: #f5f5f5;
-	overflow: auto;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
+	height: 100%;
+	border: none;
 }
 
 /* PDF Loading Indicator */

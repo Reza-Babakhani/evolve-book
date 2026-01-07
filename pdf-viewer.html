@@ -77,8 +77,8 @@
 			</div>
 		</nav>
 
-		<!-- Breadcrumb -->
-		<div class="breadcrumb-container">
+		<!-- Breadcrumb (Hidden for full-screen PDF viewer) -->
+		<div class="breadcrumb-container d-none">
 			<div class="container">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb" id="breadcrumb">
@@ -104,115 +104,75 @@
 			<!-- PDF Title (Hidden, used for document title) -->
 			<h1 class="d-none" id="pdfTitle">PDF Viewer</h1>
 
-			<!-- PDF.js Viewer Container -->
-			<div class="pdf-viewer-container" id="pdfViewerContainer">
-				<!-- Loading Indicator -->
-				<div id="pdfLoadingIndicator" class="pdf-loading-indicator">
-					<div class="pdf-loading-content">
-						<div class="spinner-border text-primary" role="status">
-							<span class="visually-hidden">Loading...</span>
-						</div>
-						<p class="mt-3 mb-2" id="pdfLoadingText">Loading PDF...</p>
-						<div class="progress" style="width: 300px; height: 8px;">
-							<div
-								id="pdfProgressBar"
-								class="progress-bar progress-bar-striped progress-bar-animated"
-								role="progressbar"
-								style="width: 0%"
-							></div>
-						</div>
-					</div>
-				</div>
-				<div id="pdfPagesContainer"></div>
-			</div>
-
-			<!-- Floating PDF Controls -->
-			<div class="pdf-floating-controls">
-				<button
-					id="pdfZoomInBtn"
-					class="pdf-zoom-btn"
-					onclick="pdfZoomIn()"
-					title="Zoom In"
-				>
-					<i class="bi bi-plus-lg"></i>
-				</button>
-				<button
-					id="pdfZoomOutBtn"
-					class="pdf-zoom-btn"
-					onclick="pdfZoomOut()"
-					title="Zoom Out"
-				>
-					<i class="bi bi-dash-lg"></i>
-				</button>
-				<button
-					id="pdfGotoPageBtn"
-					class="pdf-goto-page-btn"
-					onclick="showGotoPageModal()"
-					title="Go to Page"
-				>
-					Go To
-				</button>
-			</div>
+			<!-- Default PDF Viewer (iframe) -->
+			<iframe
+				id="pdfViewer"
+				src=""
+				style="width: 100%; height: 100%; border: none;"
+				title="PDF Viewer"
+			></iframe>
 		</main>
 
-		<!-- Go To Page Modal -->
-		<div
-			class="modal fade"
-			id="gotoPageModal"
-			tabindex="-1"
-			aria-labelledby="gotoPageModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content support-modal-content">
-					<div class="modal-header border-0 pb-2">
-						<h5 class="modal-title" id="gotoPageModalLabel">
-							Go to Page
-						</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div class="modal-body">
-						<div class="mb-3">
-							<label for="gotoPageInput" class="form-label"
-								>Page Number</label
-							>
-							<input
-								type="number"
-								class="form-control"
-								id="gotoPageInput"
-								placeholder="Enter page number"
-								min="1"
-								autofocus
-							/>
-							<small class="text-muted"
-								>Total pages:
-								<span id="modalPageCount">-</span></small
-							>
-						</div>
-						<button
-							type="button"
-							class="btn btn-primary w-100"
-							onclick="goToPageFromModal()"
-						>
-							Go
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- PDF.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 		<!-- Bootstrap JS -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		<!-- Custom JS -->
 		<script src="js/config.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/pdf-viewer.js"></script>
+		<script>
+			// Initialize PDF viewer with default browser viewer
+			document.addEventListener("DOMContentLoaded", function () {
+				const urlParams = new URLSearchParams(window.location.search);
+				const pdfUrl = urlParams.get("url");
+				const title = urlParams.get("title") || "PDF Viewer";
+				const bookId = urlParams.get("bookId");
+
+				if (!pdfUrl) {
+					window.location.href = "index.html";
+					return;
+				}
+
+				// Update title
+				const titleElement = document.getElementById("pdfTitle");
+				if (titleElement) {
+					titleElement.textContent = title;
+				}
+				document.title = title + " - My Evolve";
+
+				// Update breadcrumb
+				if (bookId && typeof CONFIG !== "undefined") {
+					const book = CONFIG.books.find((b) => b.id === parseInt(bookId));
+					if (book) {
+						const breadcrumbLink = document.getElementById("breadcrumbBookLink");
+						const breadcrumbPdfName = document.getElementById("breadcrumbPdfName");
+						if (breadcrumbLink) {
+							breadcrumbLink.textContent = book.name;
+							breadcrumbLink.href = `book-details.html?id=${book.id}`;
+						}
+						if (breadcrumbPdfName) {
+							breadcrumbPdfName.textContent = title;
+						}
+					}
+				} else {
+					const breadcrumbPdfName = document.getElementById("breadcrumbPdfName");
+					if (breadcrumbPdfName) {
+						breadcrumbPdfName.textContent = title;
+					}
+				}
+
+				// Set PDF URL in iframe
+				const pdfViewer = document.getElementById("pdfViewer");
+				if (pdfViewer) {
+					pdfViewer.src = pdfUrl;
+				}
+
+				// Dynamically adjust PDF viewer position based on navbar height
+				const navbar = document.querySelector('.navbar');
+				const pdfViewerMain = document.querySelector('.pdf-viewer-main');
+				if (navbar && pdfViewerMain) {
+					const navbarHeight = navbar.offsetHeight;
+					pdfViewerMain.style.top = navbarHeight + 'px';
+					pdfViewerMain.style.height = `calc(100vh - ${navbarHeight}px)`;
+				}
+			});
+		</script>
 	</body>
 </html>
